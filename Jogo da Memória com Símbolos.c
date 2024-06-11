@@ -126,28 +126,25 @@ int main(){
 	do {
 		system("cls");
 		//iniciar a função rand()
-    	srand(time(NULL));
+		srand(time(NULL));
+		printf("\t\t\t\t\tBem-Vindo ao Jogo da Memória!\t\t\t\t\t\n\n");
+		printf("Serão gerados 5 símbolos (caracteres especiais do teclado) e 5 números (entre 0 e 10).\n");
+		printf("Você deve memorizar a sequência de símbolos e números em 20 segundos e depois escrevê-la na ordem em que foi exibida.\n");
+		printf("Pressione ENTER para iniciar. Boa sorte!\n");
     	
-    	printf("\t\t\t\t\tBem-Vindo ao Jogo da Memória!\t\t\t\t\t\n\n");
-    	printf("Serão gerados 5 símbolos (caracteres especiais do teclado) e 5 números (entre 0 e 10).\n");
-    	printf("Você deve memorizar a sequência de símbolos e números em 20 segundos e depois escrevê-la na ordem em que foi exibida.\n");
-    	printf("Pressione ENTER para iniciar. Boa sorte!\n");
-    	
-    	do {
-    		//recebe o ENTER do usuário
-		c = getch(); 
-		//enquanto ele não digitar o ENTER, não se inicia o jogo. "c" está verificando se a tecla pressionada é o Enter (código 13 na tabela ASCII).
+		do {
+			//recebe o ENTER do usuário
+			c = getch();
+			//enquanto ele não digitar o ENTER, não se inicia o jogo. "c" está verificando se a tecla pressionada é o Enter (código 13 na tabela ASCII).
 		} while (c != 13); 
-    	guardarSimbolosNumeros(vetorDados);
-
-	//o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
-    	j = 20; 
-    	
-    	do {
-		//limpar a tela do console a cada iteração do j.
-    		system("cls"); 
-    		if (j > 1){
-    			printf("Memorize a sequência abaixo em %d segundos\n\n", j);
+		guardarSimbolosNumeros(vetorDados);
+		//o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
+		j = 20; 
+		do {
+			//limpar a tela do console a cada iteração do j.
+			system("cls");
+			if (j > 1){
+				printf("Memorize a sequência abaixo em %d segundos\n\n", j);
 			} else {
 				printf("Memorize a sequência abaixo em %d segundo\n\n", j);
 			}
@@ -156,7 +153,7 @@ int main(){
 			imprimirVetor(vetorDados);
 			
 			Sleep(1000);//essa função recebe um valor positivo que representa a quantidade de milissegundos que é necessário esperar;
-	} while (j > 0);
+		} while (j > 0);
 
 		//limpar tela
 		system("cls");

@@ -20,7 +20,7 @@ char gerarSimboloAleatorio(){
 	char simbolos[NUM_SIMBOLOS] = {'!', '@', '#', '$', '%', ':', '&', '*', '(', ')', '-', '+', '*', '/', '<', '>', '§', 'ª', 'º', '?'};
 	
 	//gerar um símbolo aleatório entre 0 e 5
-	i = rand()%5; 
+	i = rand()%19; 
 	
 	return simbolos[i];
 }

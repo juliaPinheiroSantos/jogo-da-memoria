@@ -74,6 +74,7 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 			//a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, 
 			//instrui o sancf a ignorar qualquer espaço em branco antes de ler o caractere 
 			scanf(" %c", &resposta[i].simbolo);
+			resposta[i].numero = -1;
 			//limpar o buffer para o próximo símbolo da sequência 
 			getchar(); 
 			//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
@@ -81,6 +82,7 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 		} else {
 			printf("%dº elemento: \n", i+1);
 			scanf("%d", &resposta[i].numero);
+			resposta[i].simbolo = '\0';
 			//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
 			fflush(stdin); 
 		}

@@ -89,16 +89,16 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 	}
 		
 	for (int i = 0; i < 10; i++){
-			if (sequencia[i].simbolo != '\0'){
-				if(sequencia[i].simbolo == resposta[i].simbolo){
-					acertos++;
-				}
-			} else {
-				if(sequencia[i].numero == resposta[i].numero){
-					acertos++;
-				}
+		if (sequencia[i].simbolo != '\0'){
+			if(sequencia[i].simbolo == resposta[i].simbolo){
+				acertos++;
+			}
+		} else {
+			if(sequencia[i].numero == resposta[i].numero){
+				acertos++;
 			}
 		}
+	}
 	
 	return acertos;
 }

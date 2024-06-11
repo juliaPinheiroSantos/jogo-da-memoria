@@ -144,7 +144,7 @@ int main(){
     		//recebe o ENTER do usuário
 		c = getch(); 
 		//enquanto ele não digitar o ENTER, não se inicia o jogo. "c" está verificando se a tecla pressionada é o Enter (código 13 na tabela ASCII).
-		}while (c != 13); 
+		} while (c != 13); 
     	guardarSimbolosNumeros(vetorDados);
 
 	//o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
@@ -163,8 +163,9 @@ int main(){
 			imprimirVetor(vetorDados);
 			
 			Sleep(1000);//essa função recebe um valor positivo que representa a quantidade de milissegundos que é necessário esperar;
-		} while (j > 0);
-		
+	} while (j > 0);
+
+		//limpar tela
 		system("cls");
 		printf("Informe a sequência de símbolos e números exibida: \n\n"); 
 		acertos = verificarSequencia(vetorDados);

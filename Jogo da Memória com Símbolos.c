@@ -36,7 +36,7 @@ void guardarSimbolosNumeros(DadoAleatorio vetor[10]){
 	for (i = 0; i < 10; i++) {
           if (i % 2 == 0) {  //guarda simbolos em posições pares
               vetor[i].simbolo = gerarSimboloAleatorio();
-              vetor[i].numero = 0; //quando é número, inicializa com 0
+              vetor[i].numero = -1; //quando é número, inicializa com 0
           } else { 
               vetor[i].simbolo = '\0'; //guarda numeros em posições ímpares
               vetor[i].numero = gerarNumeroAleatorio();// quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo

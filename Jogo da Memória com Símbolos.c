@@ -26,7 +26,7 @@ char gerarSimboloAleatorio(){
 }
 
 int gerarNumeroAleatorio() {
-    return rand() % 11;  //gera um número aleatório entre 0 e 10
+    return rand()%10;  //gera um número aleatório entre 0 e 10
 }
 
 //essa função serve para guardar os símbolos e numeros gerados em "gerarSimboloAleatorio" e "gerarNumeroAleatorio" em um vetor do tipo DadoAleatorio

@@ -66,11 +66,13 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 	DadoAleatorio resposta[10]; 
 	for (int i = 0; i < 10; i++){
 		//a sequência tem símbolos na posição par e números na posição ímpar. 
-		//logo, já que "resposta[10]" é uma estrutura com números e símbolos, é preciso verificar qual a posição para ler um dado char ou int.
+		//logo, já que "resposta[10]" é uma estrutura com números e símbolos, 
+		//é preciso verificar qual a posição para ler um dado char ou int.
 		if (i%2 == 0){ 
 			printf("%dº elemento: \n", i+1);
 			//o scanf lê o caractere de nova linha ao invés de ler um caractere após um número, 
-			//a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, instrui o sancf a ignorar qualquer espaço em branco antes de ler o caractere 
+			//a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, 
+			//instrui o sancf a ignorar qualquer espaço em branco antes de ler o caractere 
 			scanf(" %c", &resposta[i].simbolo);
 			//limpar o buffer para o próximo símbolo da sequência 
 			getchar(); 
@@ -83,17 +85,6 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 			fflush(stdin); 
 		}
 	}
-		
-	/*/printf("\n\nSua resposta: ");
-	for (int i = 1; i <= 10; i++){
-		if (resposta[i].simbolo != '\0') {
-            printf("%c ", resposta[i].simbolo);//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada
-        } else {
-            printf("%d ", resposta[i].numero);
-        }
-	}
-	
-	printf("\n\n");/*/
 		
 	for (int i = 0; i < 10; i++){
 			if (sequencia[i].simbolo != '\0'){

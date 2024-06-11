@@ -13,7 +13,7 @@ typedef struct {
     int numero;
 } DadoAleatorio;
 
-//essa função serve para gerar 5 caracteres aleatórios de 10 e retornar para o programa principal
+//essa função serve para gerar 5 caracteres aleatórios de 20 e retornar para o programa principal
 char gerarSimboloAleatorio(){
 	int i;
 	//vou criar a "biblioteca" de símbolos.

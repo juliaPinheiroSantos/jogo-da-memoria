@@ -34,12 +34,16 @@ void guardarSimbolosNumeros(DadoAleatorio vetor[10]){
 	int i;
 	//guardar de forma intercalada
 	for (i = 0; i < 10; i++) {
-          if (i % 2 == 0) {  //guarda simbolos em posições pares
+          if (i % 2 == 0) {  
+		  //guarda simbolos em posições pares
               vetor[i].simbolo = gerarSimboloAleatorio();
-              vetor[i].numero = -1; //quando é número, inicializa com 0
+		  //quando é número, inicializa com 0
+              vetor[i].numero = -1; 
           } else { 
-              vetor[i].simbolo = '\0'; //guarda numeros em posições ímpares
-              vetor[i].numero = gerarNumeroAleatorio();// quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo
+		  //guarda numeros em posições ímpares
+              vetor[i].simbolo = '\0'; 
+		  // quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo
+              vetor[i].numero = gerarNumeroAleatorio();
           }
     }
 }
@@ -61,15 +65,22 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 	int acertos = 0;
 	DadoAleatorio resposta[10]; 
 	for (int i = 0; i < 10; i++){
-		if (i%2 == 0){ //a sequência tem símbolos na posição par e números na posição ímpar. logo, já que "resposta[10]" é uma estrutura com números e símbolos, é preciso verificar qual a posição para ler um dado char ou int.
+		//a sequência tem símbolos na posição par e números na posição ímpar. 
+		//logo, já que "resposta[10]" é uma estrutura com números e símbolos, é preciso verificar qual a posição para ler um dado char ou int.
+		if (i%2 == 0){ 
 			printf("%dº elemento: \n", i+1);
-			scanf(" %c", &resposta[i].simbolo);//o scanf lê o caractere de nova linha ao invés de ler um caractere após um número, a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, instrui o sancf a ignorar qualquer espaço em branco antes de ler o caractere 
-			getchar(); //limpar o buffer para o próximo símbolo da sequência 
-			fflush(stdin);//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
+			//o scanf lê o caractere de nova linha ao invés de ler um caractere após um número, 
+			//a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, instrui o sancf a ignorar qualquer espaço em branco antes de ler o caractere 
+			scanf(" %c", &resposta[i].simbolo);
+			//limpar o buffer para o próximo símbolo da sequência 
+			getchar(); 
+			//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
+			fflush(stdin);
 		} else {
 			printf("%dº elemento: \n", i+1);
 			scanf("%d", &resposta[i].numero);
-			fflush(stdin); //limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
+			//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
+			fflush(stdin); 
 		}
 	}
 		
@@ -130,14 +141,18 @@ int main(){
     	printf("Pressione ENTER para iniciar. Boa sorte!\n");
     	
     	do {
-    		c = getch(); //recebe o ENTER do usuário
-		}while (c != 13); //enquanto ele não digitar o ENTER, não se inicia o jogo. "c" está verificando se a tecla pressionada é o Enter (código 13 na tabela ASCII).
+    		//recebe o ENTER do usuário
+		c = getch(); 
+		//enquanto ele não digitar o ENTER, não se inicia o jogo. "c" está verificando se a tecla pressionada é o Enter (código 13 na tabela ASCII).
+		}while (c != 13); 
     	guardarSimbolosNumeros(vetorDados);
-    	
-    	j = 20; //o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
+
+	//o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
+    	j = 20; 
     	
     	do {
-    		system("cls"); //limpar a tela do console a cada iteração do j.
+		//limpar a tela do console a cada iteração do j.
+    		system("cls"); 
     		if (j > 1){
     			printf("Memorize a sequência abaixo em %d segundos\n\n", j);
 			} else {

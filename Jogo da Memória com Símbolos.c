@@ -45,12 +45,14 @@ void guardarSimbolosNumeros(DadoAleatorio vetor[10]){
 		  // quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo
               vetor[i].numero = gerarNumeroAleatorio();
           }
-    }
+	}
 }
+
 
 //essa função imprime o vetor de símbolos e números
 void imprimirVetor(DadoAleatorio v[10]){
-    for (int i = 0; i < 10; i++) {
+	int i = 0;
+	for (i = 0; i < 10; i++) {
 //usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada (!"\0" ou se é par)
       if (v[i].simbolo != '\0') {
           printf("%c ", v[i].simbolo)
@@ -60,11 +62,25 @@ void imprimirVetor(DadoAleatorio v[10]){
     }
 }
 
+void imprimirProxPosVetor(int posUsuario, DadoAleatorio seqPerguntas[10]){
+	for (int i = 0; i < 10; i++){
+		if (i == posUsuario){
+			if (i%2 != 0){
+				printf(" %c ", seqPerguntas[i+1].numero);
+			} else {
+				printf(" %d ", seqPerguntas[i+1].simbolo);
+			}
+		}
+	}
+}
+
 //essa função verifica se a sequência que o usuário escreveu como resposta é igual à sequência gerada
 int verificarSequencia(DadoAleatorio sequencia[10]){
 	int acertos = 0;
-	DadoAleatorio resposta[10]; 
-	for (int i = 0; i < 10; i++){
+	int i = 0;
+	DadoAleatorio resposta[10];
+
+	for (i = 0; i < 10; i++){
 		//a sequência tem símbolos na posição par e números na posição ímpar. 
 		//logo, já que "resposta[10]" é uma estrutura com números e símbolos, 
 		//é preciso verificar qual a posição para ler um dado char ou int.
@@ -72,7 +88,7 @@ int verificarSequencia(DadoAleatorio sequencia[10]){
 			printf("%dº elemento: \n", i+1);
 			//o scanf lê o caractere de nova linha ao invés de ler um caractere após um número, 
 			//a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, 
-			//instrui o sancf a ignorar qualquer espaço em branco antes de ler o caractere 
+			//instrui o scanf a ignorar qualquer espaço em branco antes de ler o caractere 
 			scanf(" %c", &resposta[i].simbolo);
 			resposta[i].numero = -1;
 			//limpar o buffer para o próximo símbolo da sequência 
@@ -116,7 +132,7 @@ void scoreUser(int qntdAcertos, DadoAleatorio vet[10]){
 int main(){
 	DadoAleatorio vetorDados[10];
 	DadoAleatorio vetorRespostas[10];
-	int i, j;
+	int i, j, k;
 	int acertos = 0;
 	int opcao = 0;
 	char c;
@@ -140,6 +156,7 @@ int main(){
 		guardarSimbolosNumeros(vetorDados);
 		//o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
 		j = 20; 
+		k = 2;
 		do {
 			//limpar a tela do console a cada iteração do j.
 			system("cls");
@@ -150,7 +167,8 @@ int main(){
 			}
     		
 			j--; 
-			imprimirVetor(vetorDados);
+			//imprimirVetor(vetorDados);
+			imprimirProxPosVetor(pos, )
 			
 			Sleep(1000);//essa função recebe um valor positivo que representa a quantidade de milissegundos que é necessário esperar;
 		} while (j > 0);

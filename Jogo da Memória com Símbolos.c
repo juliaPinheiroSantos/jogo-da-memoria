@@ -34,24 +34,24 @@ void guardarSimbolosNumeros(DadoAleatorio vetor[10]){
 	int i;
 	//guardar de forma intercalada
 	for (i = 0; i < 10; i++) {
-        if (i % 2 == 0) {  //guarda simbolos em posições pares
-            vetor[i].simbolo = gerarSimboloAleatorio();
-            vetor[i].numero = 0; //quando é número, inicializa com 0
-        } else { 
-            vetor[i].simbolo = '\0'; //guarda numeros em posições ímpares
-            vetor[i].numero = gerarNumeroAleatorio();// quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo
-        }
+          if (i % 2 == 0) {  //guarda simbolos em posições pares
+              vetor[i].simbolo = gerarSimboloAleatorio();
+              vetor[i].numero = 0; //quando é número, inicializa com 0
+          } else { 
+              vetor[i].simbolo = '\0'; //guarda numeros em posições ímpares
+              vetor[i].numero = gerarNumeroAleatorio();// quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo
+          }
     }
 }
 
 //essa função imprime o vetor de símbolos e números
 void imprimirVetor(DadoAleatorio v[10]){
-	for (int i = 0; i < 10; i++) {
-        if (v[i].simbolo != '\0') {
-            printf("%c ", v[i].simbolo);//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada
-        } else {
-            printf("%d ", v[i].numero);
-        }
+    for (int i = 0; i < 10; i++) {
+      if (v[i].simbolo != '\0') {
+          printf("%c ", v[i].simbolo);//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada
+      } else {
+          printf("%d ", v[i].numero);
+      }
     }
 }
 

@@ -48,7 +48,7 @@ void guardarSimbolosNumeros(DadoAleatorio vetor[10]){
 void imprimirVetor(DadoAleatorio v[10]){
     for (int i = 0; i < 10; i++) {
       if (v[i].simbolo != '\0') {
-          printf("%c ", v[i].simbolo);//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada
+          printf("%c ", v[i].simbolo);//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada (!"\0" ou se é par)
       } else {
           printf("%d ", v[i].numero);
       }

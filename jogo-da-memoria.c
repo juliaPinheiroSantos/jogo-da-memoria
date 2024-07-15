@@ -1,4 +1,3 @@
-@ -0,0 +1,187 @@
 #include <stdio.h> //biblioteca padrão
 #include <stdlib.h> //biblioteca padrão
 #include <locale.h> // configura o programa para a linguagem do sistema

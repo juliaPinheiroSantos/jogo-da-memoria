@@ -1,187 +1,188 @@
+@ -0,0 +1,187 @@
 #include <stdio.h> //biblioteca padrão
 #include <stdlib.h> //biblioteca padrão
 #include <locale.h> // configura o programa para a linguagem do sistema
 #include <conio.h> //para iniciar o jogo a partir do "enter" do usuário
 #include <windows.h> // para usar system("cls") e a função sleep()
 #include <time.h> // para usar srand
-
-#define NUM_SIMBOLOS 20 //define a quantidade de caracteres que serão usados como "bibilioteca" para gerar caracteres especiais (símbolos) aleatórios 
-
+ 
+#define NUM_SIMBOLOS 20 //define a quantidade de caracteres que serão usados como "bibilioteca" para gerar caracteres especiais (símbolos) aleatórios
+ 
 //essa estrutura armazena um símbolo e um número aleatório
-typedef struct {
-    char simbolo;
-    int numero;
-} DadoAleatorio;
 
+typedef struct {
+	char simbolo;
+	int numero;
+} DadoAleatorio;
+ 
 //essa função serve para gerar 5 caracteres aleatórios de 20 e retornar para o programa principal
 char gerarSimboloAleatorio(){
 	int i;
 	//vou criar a "biblioteca" de símbolos.
-	char simbolos[NUM_SIMBOLOS] = {'!', '@', '#', '$', '%', ':', '&', '*', '(', ')', '-', '+', '*', '/', '<', '>', '§', 'ª', 'º', '?'};
-	
-	//gerar um símbolo aleatório entre 0 e 5
+	char simbolos[NUM_SIMBOLOS] = {'!', '@', '#', '$', '%', ':', '&', '*', '(', ')', '-', '+', '=', '/', '<', '>', '|', '[', 'º', '?'};
+
+	//gerar um símbolo aleatório
 	i = rand()%19; 
-	
+
 	return simbolos[i];
 }
-
+ 
 int gerarNumeroAleatorio() {
-    return rand()%10;  //gera um número aleatório entre 0 e 10
+	return rand()%10;  //gera um número aleatório entre 0 e 10
 }
-
+ 
 //essa função serve para guardar os símbolos e numeros gerados em "gerarSimboloAleatorio" e "gerarNumeroAleatorio" em um vetor do tipo DadoAleatorio
 void guardarSimbolosNumeros(DadoAleatorio vetor[10]){
 	int i;
+
 	//guardar de forma intercalada
 	for (i = 0; i < 10; i++) {
-          if (i % 2 == 0) {  
+		  if (i % 2 == 0) {  
 		  //guarda simbolos em posições pares
-              vetor[i].simbolo = gerarSimboloAleatorio();
-		  //quando é número, inicializa com 0
-              vetor[i].numero = -1; 
-          } else { 
+			vetor[i].simbolo = gerarSimboloAleatorio();
+		  //quando é número, inicializa com -1
+			vetor[i].numero = -1; 
+		  } else { 
 		  //guarda numeros em posições ímpares
-              vetor[i].simbolo = '\0'; 
+			vetor[i].simbolo = '\0'; 
 		  // quando é símbolo, usa o caracter "nulo" pra falar que não tem símbolo
-              vetor[i].numero = gerarNumeroAleatorio();
-          }
+			vetor[i].numero = gerarNumeroAleatorio();
+		  }
 	}
 }
-
-
-//essa função imprime o vetor de símbolos e números
-void imprimirVetor(DadoAleatorio v[10]){
-	int i = 0;
-	for (i = 0; i < 10; i++) {
-//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada (!"\0" ou se é par)
-      if (v[i].simbolo != '\0') {
-          printf("%c ", v[i].simbolo)
-      } else {
-          printf("%d ", v[i].numero);
-      }
-    }
-}
-
-void imprimirProxPosVetor(int posUsuario, DadoAleatorio seqPerguntas[10]){
-	for (int i = 0; i < 10; i++){
-		if (i == posUsuario){
-			if (i%2 != 0){
-				printf(" %c ", seqPerguntas[i+1].numero);
-			} else {
-				printf(" %d ", seqPerguntas[i+1].simbolo);
-			}
-		}
+ 
+//essa função imprime o vetor de símbolos e números (até max - se foi até o final da sequência de 10, o jogo acaba).
+//enquanto está na sequência, sem erros, o max é a posição da sequência que o user está agora e que vai pro próximo
+//enquanto está na sequência, com erros, o max é a posição da sequência que o user conseguiu ir e o jogo acaba.
+void imprimirVetor(DadoAleatorio v[10], int max){
+	for (int i = 0; i < max; i++) {
+	//usando os critérios da função "guardarSimbolosNumeros" para guardar de forma intercalada (!"\0" ou se é par)
+	  if (v[i].simbolo != '\0') {
+		  printf("%c ", v[i].simbolo);
+	  } else {
+		  printf("%d ", v[i].numero);
+	  }
 	}
 }
-
-//essa função verifica se a sequência que o usuário escreveu como resposta é igual à sequência gerada
-int verificarSequencia(DadoAleatorio sequencia[10]){
+ 
+//essa função verifica se o elemento do round que o usuário está e escreveu como resposta é o elemento do sequência gerada referente àquele round
+int verificarSequencia(DadoAleatorio sequencia[10], DadoAleatorio resposta[10], int round){
 	int acertos = 0;
-	int i = 0;
-	DadoAleatorio resposta[10];
-
-	for (i = 0; i < 10; i++){
-		//a sequência tem símbolos na posição par e números na posição ímpar. 
-		//logo, já que "resposta[10]" é uma estrutura com números e símbolos, 
-		//é preciso verificar qual a posição para ler um dado char ou int.
-		if (i%2 == 0){ 
-			printf("%dº elemento: \n", i+1);
-			//o scanf lê o caractere de nova linha ao invés de ler um caractere após um número, 
-			//a partir da segunda vez do loop. Então, ao colocar um espaço antes de %c, 
-			//instrui o scanf a ignorar qualquer espaço em branco antes de ler o caractere 
-			scanf(" %c", &resposta[i].simbolo);
-			resposta[i].numero = -1;
-			//limpar o buffer para o próximo símbolo da sequência 
-			getchar(); 
-			//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
-			fflush(stdin);
-		} else {
-			printf("%dº elemento: \n", i+1);
-			scanf("%d", &resposta[i].numero);
-			resposta[i].simbolo = '\0';
-			//limpar o buffer para, se o usuário quiser jogar de novo, não ter nada da jogada anterior no buffer
-			fflush(stdin); 
-		}
-	}
-		
-	for (int i = 0; i < 10; i++){
+	//usando o critério que verifica se naquela posição no tipo símbolo tem '\0' ou não.
+	//de acordo com isso -> se tem, é número. se não, é símbolo.
+	for (int i = 0; i < round; i++){
 		if (sequencia[i].simbolo != '\0'){
-			if(sequencia[i].simbolo == resposta[i].simbolo){
+			if (sequencia[i].simbolo == resposta[i].simbolo){
 				acertos++;
 			}
 		} else {
-			if(sequencia[i].numero == resposta[i].numero){
+			if (sequencia[i].numero == resposta[i].numero){
 				acertos++;
 			}
 		}
 	}
-	
 	return acertos;
 }
-
+ 
 //essa função verifica se o usuário acertou toda a sequência ou não, e imprime o resultado
-void scoreUser(int qntdAcertos, DadoAleatorio vet[10]){
+//retorna 0 se o jogo deve continuar, 1 caso contrário
+int scoreUser(int qntdAcertos, int round, DadoAleatorio vet[10]){
 	if (qntdAcertos == 10){
-		printf("\t\t\tParábens!!! Você tem uma ótima memória! Verifique a sequência exibida:\n\n");
-		imprimirVetor(vet);
+		printf("\t\t\tParábens!!! Você tem uma ótima memória! Verifique a sequência gerada:\n\n");
+		imprimirVetor(vet, 10);
+		return 1;
+	} else if (qntdAcertos == round){
+		printf("\t\t\tExcelente, você passou deste round. Verifique a sequência até o momento:\n\n");
+		imprimirVetor(vet, round);
+		return 0;
 	} else {
-		printf("\t\t\tQue pena! Sua memória não é muito boa :( Verifique a sequência exibida:\n\n");
-		imprimirVetor(vet);
+		printf("\t\t\tQue pena! Sua memória não é muito boa :( Verifique a sequência gerada:\n\n");
+		imprimirVetor(vet, 10);
+		return 1;
 	}
 }
+ 
 int main(){
 	DadoAleatorio vetorDados[10];
 	DadoAleatorio vetorRespostas[10];
-	int i, j, k;
+	int round, timer, fimDoJogo;
 	int acertos = 0;
 	int opcao = 0;
 	char c;
-	
-	setlocale(LC_ALL, "Portuguese");
-	
+	setlocale(LC_ALL, "");
+
 	do {
 		system("cls");
 		//iniciar a função rand()
 		srand(time(NULL));
 		printf("\t\t\t\t\tBem-Vindo ao Jogo da Memória!\t\t\t\t\t\n\n");
 		printf("Serão gerados 5 símbolos (caracteres especiais do teclado) e 5 números (entre 0 e 10).\n");
-		printf("Você deve memorizar a sequência de símbolos e números em 20 segundos e depois escrevê-la na ordem em que foi exibida.\n");
+		printf("Você deve memorizar a sequência de símbolos e números gradualmente.\n");
+		printf("Primeiro será mostrado o primeiro elemento, você terá que lembrá-lo, depois o segundo, e você terá que digitar os dois primeiros, etc...\n");
 		printf("Pressione ENTER para iniciar. Boa sorte!\n");
-    	
+
 		do {
 			//recebe o ENTER do usuário
 			c = getch();
 			//enquanto ele não digitar o ENTER, não se inicia o jogo. "c" está verificando se a tecla pressionada é o Enter (código 13 na tabela ASCII).
-		} while (c != 13); 
-		guardarSimbolosNumeros(vetorDados);
-		//o usuário deve memorizar a sequência de símbolos e números em 20 segundos.
-		j = 20; 
-		k = 2;
-		do {
-			//limpar a tela do console a cada iteração do j.
-			system("cls");
-			if (j > 1){
-				printf("Memorize a sequência abaixo em %d segundos\n\n", j);
-			} else {
-				printf("Memorize a sequência abaixo em %d segundo\n\n", j);
-			}
-    		
-			j--; 
-			//imprimirVetor(vetorDados);
-			imprimirProxPosVetor(pos, )
-			
-			Sleep(1000);//essa função recebe um valor positivo que representa a quantidade de milissegundos que é necessário esperar;
-		} while (j > 0);
+		} while (c != 13);
 
-		//limpar tela
-		system("cls");
-		printf("Informe a sequência de símbolos e números exibida: \n\n"); 
-		acertos = verificarSequencia(vetorDados);
-		scoreUser(acertos, vetorDados);  
+		//o jogo começa aqui
+		guardarSimbolosNumeros(vetorDados);
+		round = 1, fimDoJogo = 0;
+
+		while (round <= 10 && !fimDoJogo){
+			timer = 2; 
+			while (timer > 0){
+				system("cls");
+				if (timer > 1){
+					printf("Memorize o %dº elemento abaixo em %d segundos\n\n", round, timer);
+				} else {
+					printf("Memorize o %dº elemento abaixo em %d segundo\n\n", round, timer);
+				}
+				//usando o critério de par ou ímpar para símbolo ou número
+				if ((round-1)%2 == 0){ 
+					printf("%c", vetorDados[round-1].simbolo);
+				} else {
+					printf("%d", vetorDados[round-1].numero);
+				}
+				timer--;
+				Sleep(1000);
+			}
+ 
+			system("cls");
+			printf("Informe a sequência dada até o momento:\n> ");
+			fflush(stdin);
+
+			for (int i = 0; i < round; i++){
+				//usando o critério de par ou ímpar para símbolo ou número
+				if (i%2 == 0){ 
+					scanf("%c", &vetorRespostas[i].simbolo);
+					printf("Lido: %c\n", vetorRespostas[i].simbolo);
+				} else { 
+					scanf("%d", &vetorRespostas[i].numero);
+					printf("Lido: %d\n", vetorRespostas[i].numero);
+					getchar();
+				}
+			}
+	
+			acertos = verificarSequencia(vetorDados, vetorRespostas, round);
+			fimDoJogo = scoreUser(acertos, round, vetorDados);
+			timer = 4; 
+
+			while (timer > 0){
+				timer--;
+				Sleep(700); 
+			}
+			round++;
+		}
+
+		fflush(stdin);
+		// fim do jogo
 		printf("\n\nGostaria de tentar novamente? Digite 1 para 'sim' ou 2 para não':");
 		scanf("%d", &opcao);
-		
 	} while (opcao == 1);
-
+ 
 	return 0;
+
 }
